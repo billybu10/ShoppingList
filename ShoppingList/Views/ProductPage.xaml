@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ShoppingList.ViewModels"
+             x:Class="ShoppingList.Views.ProductPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Product">
+    <ContentPage.BindingContext>
+        <viewModels:ProductViewModel />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout Spacing="10" Margin="5">
+        <Entry Placeholder="Enter name of your product"
+                Text="{Binding Text}"/>
+        <HorizontalStackLayout Spacing="20">
+            <Label Text="Amount" HorizontalOptions="End" FontSize="22" FontAttributes="Bold"/>
+            <Stepper Maximum="2000000000"
+                     Minimum="-2000000000"
+                     Increment="1"
+                     HorizontalOptions="Center"
+                     Value="{Binding Value}"/>
+            <Label Text="{Binding Value}" HorizontalOptions="Start" FontSize="22"/>
+        </HorizontalStackLayout>
+        
+
+        <Button Text="Save" Command="{Binding SaveCommand}" />
+    </VerticalStackLayout>
+</ContentPage>

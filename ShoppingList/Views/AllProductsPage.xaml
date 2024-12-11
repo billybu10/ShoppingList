@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ShoppingList.ViewModels"
+             x:Class="ShoppingList.Views.AllProductsPage"
+             Title="Your Shopping List"
+             NavigatedTo="ContentPage_NavigatedTo">
+
+    <ContentPage.BindingContext>
+        <viewModels:ProductsViewModel/>
+    </ContentPage.BindingContext>   
+       
+        <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="Add Product" Command="{Binding NewCommand}" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
+        <ToolbarItem Text="Edit Shops" Command="{Binding BrowseShopsCommand}" IconImageSource="{FontImage Glyph='✏️', Color=Black, Size=22}" />
+    </ContentPage.ToolbarItems>
+
+    <CollectionView x:Name="productsCollection"
+                        ItemsSource="{Binding AllProducts}"
+                        Margin="20"
+                        SelectionMode="None">
+
+
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid ColumnDefinitions="auto, *, auto, auto, auto" ColumnSpacing="10">
+                    <Label Text="{Binding Text}" HorizontalOptions="End" FontSize="22" FontAttributes="Bold"/>
+                    <Label Grid.Column="1" Text="{Binding Value}" HorizontalOptions="Start" FontSize="22" TextColor="Silver"/>
+                    <Button Grid.Column="2"
+                            Text="+"
+                            Command="{Binding IncrementCommand}" />
+                    <Button Grid.Column="3"
+                            Text="-"
+                            Command="{Binding DecrementCommand}" />
+                    <Button Grid.Column="4"
+                            Text="Delete"
+                            Command="{Binding DeleteCommand}" />
+                    </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>
