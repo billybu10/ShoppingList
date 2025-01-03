@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ShoppingList.ViewModels"
+             x:Class="ShoppingList.Views.AllShopsPage"
+             Title="Shops"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <ContentPage.BindingContext>
+        <viewModels:ShopsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="Add Shop" Command="{Binding NewCommand}" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
+    </ContentPage.ToolbarItems>
+    
+        <CollectionView ItemsSource="{Binding AllShops}"
+                    Margin="20"
+                    SelectionMode="None"
+                    >
+
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="auto, auto" ColumnSpacing="10">
+                        <Label Text="{Binding Text}" HorizontalOptions="End" FontSize="22" FontAttributes="Bold"/>
+                        <Button Grid.Column="1"
+                        Text="Delete"
+                        Command="{Binding DeleteCommand}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    
+</ContentPage>

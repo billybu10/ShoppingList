@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppingList.Views.ProductPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Product"> <!--xmlns:viewModels="clr-namespace:ShoppingList.ViewModels"-->
+    <VerticalStackLayout Spacing="10" Margin="5">
+        <Entry Placeholder="Enter name of your product"
+               Text="{Binding ProductViewModel.Text}"/>
+        <HorizontalStackLayout Spacing="20">
+            <Label Text="Amount" HorizontalOptions="End" FontSize="22" FontAttributes="Bold"/>
+            <Stepper Maximum="2000000000"
+                     Minimum="0"
+                     Increment="1"
+                     HorizontalOptions="Center"
+                     Value="{Binding ProductViewModel.Value}"/>
+            <Entry Text="{Binding ProductViewModel.Value}" HorizontalOptions="Start" FontSize="22"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="20">
+            <Label Text="Optional" HorizontalOptions="End" FontSize="22" FontAttributes="Bold"/>
+            <CheckBox IsChecked="{Binding ProductViewModel.Optional}"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="20" >
+            <Picker Title="Select Category" SelectedItem="{Binding ProductViewModel.Category}" ItemsSource="{Binding CategoryNames}"/>
+            <Picker Title="Select Shop" SelectedItem="{Binding ProductViewModel.Shop}" ItemsSource="{Binding ShopNames}"/>
+            <Picker Title="Select Units" SelectedItem="{Binding ProductViewModel.Unit}" ItemsSource="{Binding Units}"/>
+        </HorizontalStackLayout>
+
+        <Label Text="{Binding ProductViewModel.IncorrectDataString}" TextColor="Red"/>
+        <Button Text="Save" Command="{Binding ProductViewModel.SaveCommand}" IsEnabled="{Binding ProductViewModel.IsAllOk}"/>
+    </VerticalStackLayout>
+</ContentPage>

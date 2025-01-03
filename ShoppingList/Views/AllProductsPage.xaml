@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ShoppingList.ViewModels"
+             xmlns:controls="clr-namespace:ShoppingList.Views"
+             x:Class="ShoppingList.Views.AllProductsPage"
+             Title="Your Shopping List"
+             NavigatedTo="ContentPage_NavigatedTo">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Text="Add Product" Command="{Binding NewProductCommand}" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
+        <ToolbarItem Text="Edit Shops" Command="{Binding BrowseShopsCommand}" IconImageSource="{FontImage Glyph='✏️', Color=Black, Size=22}" />
+        <ToolbarItem Text="Edit Categories" Command="{Binding BrowseCategoriesCommand}" IconImageSource="{FontImage Glyph='✏️', Color=Black, Size=22}" />
+        <ToolbarItem Text="Edit Units" Command="{Binding BrowseUnitsCommand}" IconImageSource="{FontImage Glyph='✏️', Color=Black, Size=22}" />
+    </ContentPage.ToolbarItems>
+
+    <CollectionView x:Name="categoriesCollection"
+                        ItemsSource="{Binding CategoryProductsViewModels}"
+                        Margin="20"
+                        SelectionMode="None">
+
+        <CollectionView.Header>
+            <Label FontSize="22" FontAttributes="Bold">Products by Categories</Label>
+        </CollectionView.Header>
+
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <VerticalStackLayout Spacing="5" Margin="5">
+                    <Grid ColumnDefinitions="auto, auto">
+                        <CheckBox x:Name="see" ></CheckBox>
+                        <Label Grid.Column="1" Text="{Binding Category.Text}" HorizontalOptions="Start" FontSize="22" FontAttributes="Bold"/>
+                    </Grid>
+                    <CollectionView
+                        IsVisible="{Binding Source={x:Reference see}, Path=IsChecked}"
+                        x:Name="productsCollection"
+                        ItemsSource="{Binding Products}"
+                        Margin="20"
+                        SelectionMode="None">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="auto, auto, auto, *, auto, auto, auto, auto, auto" ColumnSpacing="10">
+                                    <Label Text="Optional" FontAttributes="Italic" HorizontalOptions="End" FontSize="22" IsVisible="Hidden">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Optional}" Value="true">
+                                                <Setter Property="IsVisible" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="TextColor" Value="Gray" />
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Grid.Column="1" Text="{Binding Text}" HorizontalOptions="End" FontSize="22" FontAttributes="Bold">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="TextColor" Value="Gray" />
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Grid.Column="2" Text="{Binding Value}" HorizontalOptions="End" FontSize="22">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="TextColor" Value="Gray" />
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Grid.Column="3" Text="{Binding Unit}" HorizontalOptions="Start" FontSize="22">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="TextColor" Value="Gray" />
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Grid.Column="4" Text="{Binding Shop}" FontAttributes="Italic" HorizontalOptions="End" FontSize="22">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="TextColor" Value="Gray" />
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Button Grid.Column="5"
+                Text="+"
+                Command="{Binding IncrementCommand}" >
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="BackgroundColor" Value="Gray" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <Button Grid.Column="6"
+                Text="-"
+                Command="{Binding DecrementCommand}">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="BackgroundColor" Value="Gray" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <Button Grid.Column="7"
+                Text="Check"
+                Command="{Binding UpdateActiveCommand}">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="BackgroundColor" Value="Gray" />
+                                                <Setter Property="Text" Value="Uncheck" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <Button Grid.Column="8"
+                Text="Delete"
+                Command="{Binding DeleteCommand}">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
+                                                <Setter Property="BackgroundColor" Value="Gray" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                </Grid>
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>
