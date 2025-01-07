@@ -30,31 +30,7 @@
 
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <VerticalStackLayout Spacing="5" Margin="5">
-                    <Grid ColumnDefinitions="auto, auto">
-                        <CheckBox x:Name="see" ></CheckBox>
-                        <Label Grid.Column="1" Text="{Binding Category.Text}" HorizontalOptions="Start" FontSize="22" FontAttributes="Bold"/>
-                    </Grid>
-                    <CollectionView
-                        IsVisible="{Binding Source={x:Reference see}, Path=IsChecked}"
-                        x:Name="productsCollection"
-                        ItemsSource="{Binding Products}"
-                        Margin="20"
-                        SelectionMode="None">
-
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <contentViews:ProductContentView ProductViewModel="{Binding .}"></contentViews:ProductContentView>
-
-
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
+                <contentViews:CategoryContentView CategoryProductsViewModel="{Binding .}"></contentViews:CategoryContentView>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
