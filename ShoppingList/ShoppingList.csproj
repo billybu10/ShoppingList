@@ -95,6 +95,9 @@
 	  <MauiXaml Update="Views\CategoryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\CategoryContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\ProductContentView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

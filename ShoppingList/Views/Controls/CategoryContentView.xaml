@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:contentViews="clr-namespace:ShoppingList.Views.Controls"
+             x:Class="ShoppingList.Views.Controls.CategoryContentView">
+    <VerticalStackLayout Spacing="5" Margin="5">
+        <Grid ColumnDefinitions="auto, auto">
+            <CheckBox x:Name="see" IsChecked="{Binding Visible}"></CheckBox>
+            <Label Grid.Column="1" Text="{Binding Category.Text}" HorizontalOptions="Start" FontSize="22" FontAttributes="Bold"/>
+        </Grid>
+        <CollectionView
+        IsVisible="{Binding Visible}"
+        x:Name="productsCollection"
+        ItemsSource="{Binding Products}"
+        Margin="20"
+        SelectionMode="None">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <contentViews:ProductContentView ProductViewModel="{Binding .}"></contentViews:ProductContentView>
+
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentView>

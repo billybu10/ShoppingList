@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -8,10 +9,24 @@ using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels
 {
-    public class CategoryProductsViewModel
+    public class CategoryProductsViewModel : ObservableObject
     {
         public ObservableCollection<ViewModels.ProductViewModel> Products { get; set; } = [];
         public ViewModels.CategoryViewModel Category { get; }
+
+        private bool InternalVisible = false;
+        public bool Visible
+        {
+            get => InternalVisible;
+            set
+            {
+                if (InternalVisible != value)
+                {
+                    InternalVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public CategoryProductsViewModel(CategoryViewModel Category) {
             this.Category = Category;
