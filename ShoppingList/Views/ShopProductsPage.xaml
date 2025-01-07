@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:contentViews="clr-namespace:ShoppingList.Views.Controls"
              x:Class="ShoppingList.Views.ShopProductsPage"
              Title="ShopProductsPage">
     <VerticalStackLayout>
@@ -19,89 +20,7 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="auto, auto, auto, *, auto, auto, auto, auto, auto, auto" ColumnSpacing="10">
-                            <Label Text="Optional" FontAttributes="Italic" HorizontalOptions="End" FontSize="22" IsVisible="Hidden">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding Optional}" Value="true">
-                                        <Setter Property="IsVisible" Value="Visible" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="TextColor" Value="Gray" />
-                                        <Setter Property="Opacity" Value="0.5" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Label Grid.Column="1" Text="{Binding Text}" HorizontalOptions="End" FontSize="22" FontAttributes="Bold">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="TextColor" Value="Gray" />
-                                        <Setter Property="Opacity" Value="0.5" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Label Grid.Column="2" Text="{Binding Value}" HorizontalOptions="End" FontSize="22">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="TextColor" Value="Gray" />
-                                        <Setter Property="Opacity" Value="0.5" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Label Grid.Column="3" Text="{Binding Unit}" HorizontalOptions="Start" FontSize="22">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="TextColor" Value="Gray" />
-                                        <Setter Property="Opacity" Value="0.5" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Label Grid.Column="4" Text="{Binding Shop}" FontAttributes="Italic" HorizontalOptions="End" FontSize="22">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="TextColor" Value="Gray" />
-                                        <Setter Property="Opacity" Value="0.5" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <Button Grid.Column="5"
-Text="+"
-Command="{Binding IncrementCommand}" >
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="BackgroundColor" Value="Gray" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Grid.Column="6"
-Text="-"
-Command="{Binding DecrementCommand}">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="BackgroundColor" Value="Gray" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Grid.Column="7"
-Text="Check"
-Command="{Binding UpdateActiveCommand}">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="BackgroundColor" Value="Gray" />
-                                        <Setter Property="Text" Value="Uncheck" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Grid.Column="8"
-Text="Delete"
-Command="{Binding DeleteCommand}">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding Active}" Value="true">
-                                        <Setter Property="BackgroundColor" Value="Gray" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                        </Grid>
-
+                        <contentViews:ProductContentView ProductViewModel="{Binding .}"></contentViews:ProductContentView>
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
